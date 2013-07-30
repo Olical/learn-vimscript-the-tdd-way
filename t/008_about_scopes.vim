@@ -1,7 +1,3 @@
-" REMEMBER TO RUN :source conceal_solutions.vim
-function! ___(value)
-  return a:value
-endfunction
 " http://learnvimscriptthehardway.stevelosh.com/chapters/20.html
 
 describe 'About Scopes'
@@ -11,11 +7,11 @@ describe 'About Scopes'
     " :h b:var
     tabnew
     let b:hello = 'Howdy!'
-    Expect ___(1) ==# exists("b:hello")
-    Expect ___('Howdy!') ==# b:hello
+    Expect 1 ==# exists("b:hello")
+    Expect 'Howdy!' ==# b:hello
 
     new
-    Expect ___(0) ==# exists("b:hello")
+    Expect 0 ==# exists("b:hello")
     tabclose!
   end
 

@@ -1,7 +1,3 @@
-" REMEMBER TO RUN :source conceal_solutions.vim
-function! ___(value)
-  return a:value
-endfunction
 
 function! EchoMeow()
   echom "Meow!"
@@ -18,7 +14,7 @@ describe 'About Functions'
       return "Hello"
     endfunction
     " refer to :h exists()
-    Expect ___(1) ==# exists('*Hello')
+    Expect 1 ==# exists('*Hello')
   end
 
   it 'functions declared with a lowercase letter throw an error'
@@ -30,33 +26,33 @@ describe 'About Functions'
     catch
       let caught = 'yes'
     endtry
-    Expect ___('yes') ==# caught
-    Expect ___(0) ==# exists('*hello')
+    Expect 'yes' ==# caught
+    Expect 0 ==# exists('*hello')
   end
 
   it 'functions can be invoked with :call'
     call EchoMeow()
-    Expect ___('Meow!') ==# v:statusmsg
+    Expect 'Meow!' ==# v:statusmsg
   end
 
   it 'functions can be invoked with :echom, which echoes the return value'
     echom GetMeow()
-    Expect ___('Meow!') ==# v:statusmsg
+    Expect 'Meow!' ==# v:statusmsg
   end
 
   it 'functions are invoked by the :let keyword, which assigns the return value to a variable'
     let result = GetMeow()
-    Expect ___('Meow!') ==# result
+    Expect 'Meow!' ==# result
   end
 
   it 'functions are invoked when used in a context where {expr} is expected'
-    Expect ___('Meow!') ==# GetMeow()
+    Expect 'Meow!' ==# GetMeow()
   end
 
   it 'named arguments can be referenced using scope a: (e.g. a:name)'
     " :help a:var
     function! DisplayName(name)
-      return "Hello from " . ___(a:name)
+      return "Hello from " . a:name
     endfunction
 
     Expect "Hello from VimLondon" ==# DisplayName('VimLondon')
@@ -72,10 +68,10 @@ describe 'About Functions'
             \ }
     endfunction
 
-    Expect ___(2) ==# VariableArguments('a','b')['a:0']
-    Expect ___('a') ==# VariableArguments('a','b')['a:1']
-    Expect ___('b') ==# VariableArguments('a','b')['a:2']
-    Expect ___(['a','b']) ==# VariableArguments('a','b')['a:000']
+    Expect 2 ==# VariableArguments('a','b')['a:0']
+    Expect 'a' ==# VariableArguments('a','b')['a:1']
+    Expect 'b' ==# VariableArguments('a','b')['a:2']
+    Expect ['a', 'b'] ==# VariableArguments('a','b')['a:000']
   end
 
   it 'named and elipsis arguments can be combined'
@@ -89,11 +85,11 @@ describe 'About Functions'
             \ }
     endfunction
 
-    Expect ___(2) ==# NamedAndVariableArguments('a','b','c')['a:0']
-    Expect ___('a') ==# NamedAndVariableArguments('a','b','c')['a:foo']
-    Expect ___('b') ==# NamedAndVariableArguments('a','b','c')['a:1']
-    Expect ___('c') ==# NamedAndVariableArguments('a','b','c')['a:2']
-    Expect ___(['b','c']) ==# NamedAndVariableArguments('a','b','c')['a:000']
+    Expect 2 ==# NamedAndVariableArguments('a','b','c')['a:0']
+    Expect 'a' ==# NamedAndVariableArguments('a','b','c')['a:foo']
+    Expect 'b' ==# NamedAndVariableArguments('a','b','c')['a:1']
+    Expect 'c' ==# NamedAndVariableArguments('a','b','c')['a:2']
+    Expect ['b', 'c'] ==# NamedAndVariableArguments('a','b','c')['a:000']
   end
 
   it 'function! will overwrite an existing function of same name'
@@ -103,7 +99,7 @@ describe 'About Functions'
     function! Quicksilver()
       return 'Hg'
     endfunction
-    Expect ___('Hg') ==# Quicksilver()
+    Expect 'Hg' ==# Quicksilver()
   end
 
   it 'function (without the bang) raises an error when defining a function whose name is already in use'
@@ -118,8 +114,8 @@ describe 'About Functions'
     catch /Function Snowflake already exists/
       let caught = 'yes'
     endtry
-    Expect ___('yes') ==# caught
-    Expect ___('I am unique') ==# Snowflake()
+    Expect 'yes' ==# caught
+    Expect 'I am unique' ==# Snowflake()
   end
 
 end
